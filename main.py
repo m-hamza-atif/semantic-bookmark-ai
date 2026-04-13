@@ -158,6 +158,8 @@ def ask_questions(request: SearchRequest):
             "sources_used": len(top_chunks)
         }
 
+    except AIServiceError as err:
+        raise HTTPException(status_code=502, detail=str(err))
     except psycopg2.Error as err:
         raise HTTPException(status_code=500, detail=f"Database search error: {str(err)}")
     finally:
