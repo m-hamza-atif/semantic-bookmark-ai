@@ -2,19 +2,37 @@ import streamlit as st
 import requests
 import os
 
+
 # Uses the cloud URL if it exists, otherwise falls back to localhost for your own testing
 API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/api/v1")
 
 st.set_page_config(page_title="Semantic Bookmark AI", page_icon="🔖")
 st.title("🔖 Semantic Bookmark AI")
 
+def extract_error_message(response: requests.Response) -> str:
+    """Builds a user-friendly error from JSON or plain-text API responses."""
+    try:
+        payload = response.json()
+        if isinstance(payload, dict):
+            return payload.get("detail", "Unknown error")
+    except ValueError:
+        pass
+
+    fallback_text = response.text.strip()
+    if fallback_text:
+        return fallback_text[:250]
+    return "Unknown error"
+
 def get_bookmarks() -> list[dict]:
     """Fetches bookmarks metadata from backend."""
     try:
         response = requests.get(f"{API_URL}/bookmarks")
         if response.status_code == 200:
-            return response.json().get("bookmarks", [])
-    except requests.exceptions.ConnectionError:
+            try:
+                return response.json().get("bookmarks", [])
+            except ValueError:
+                return []
+    except requests.exceptions.RequestException:
         return []
     return []
 
@@ -36,8 +54,8 @@ with st.sidebar:
                     if response.status_code == 200:
                         st.success("Bookmark saved successfully!")
                     else:
-                        st.error(response.json().get('detail', 'Unknown error'))
-                except requests.exceptions.ConnectionError:
+                        st.error(extract_error_message(response))
+                except requests.exceptions.RequestException:
                     st.error("Cannot currently connect to backend.")
     
     st.divider()
@@ -94,17 +112,26 @@ if prompt:
                 response = requests.post(f"{API_URL}/search", json={"query": prompt})
                 
                 if response.status_code == 200:
-                    data = response.json()
-                    answer = data["answer"]
-                    sources = data["sources_used"]
+                    try:
+                        data = response.json()
+                    except ValueError:
+                        st.error("Backend returned an invalid response format.")
+                        data = {}
+
+                    answer = data.get("answer", None)
+                    sources = data.get("sources_used", None)
+
+                    if answer is None or sources is None:
+                        st.error("Backend response is missing expected fields.")
+                        answer = None
                     
                     # Show AI response on screen and save it to state
-                    st.markdown(answer)
-                    st.caption(f"Sources checked: {sources}")
-                    st.session_state.messages.append({"role": "assistant", "content": answer})
+                    if answer is not None:
+                        st.markdown(answer)
+                        st.caption(f"Sources checked: {sources}")
+                        st.session_state.messages.append({"role": "assistant", "content": answer})
                 else:
-                    err_msg = response.json().get('detail', 'Unknown error')
-                    st.error(err_msg)
+                    st.error(extract_error_message(response))
                     
-            except requests.exceptions.ConnectionError:
+            except requests.exceptions.RequestException:
                 st.error("Cannot currently connect to backend.")
