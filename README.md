@@ -84,12 +84,20 @@ You will need two terminal windows.
 uv run uvicorn main:app --reload
 ```
 *(Swagger API documentation will be available at https://www.google.com/search?q=http://127.0.0.1:8000/docs)*
-
 - **Terminal 2 (Frontend Client):**
 ```bash
 uv run streamlit run app.py
 ```
 *(The UI will open in your browser at http://localhost:8501)*
+
+If any `uv run <command>` fails with `uv trampoline failed to canonicalize script path`, fix that package launcher with:
+```bash
+uv sync --reinstall-package <package-name>
+```
+For example:
+```bash
+uv sync --reinstall-package streamlit
+```
 
 ## ✍️ Author
 Muhammad Hamza Atif - BS Software Engineering, FAST NUCES Islamabad

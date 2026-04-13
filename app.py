@@ -1,12 +1,21 @@
 import streamlit as st
 import requests
-from urllib.parse import urlparse
 
 # The local address of the FastAPI backend
 API_URL = "http://127.0.0.1:8000/api/v1"
 
 st.set_page_config(page_title="Semantic Bookmark AI", page_icon="🔖")
 st.title("🔖 Semantic Bookmark AI")
+
+def get_bookmarks() -> list[dict]:
+    """Fetches bookmarks metadata from backend."""
+    try:
+        response = requests.get(f"{API_URL}/bookmarks")
+        if response.status_code == 200:
+            return response.json().get("bookmarks", [])
+    except requests.exceptions.ConnectionError:
+        return []
+    return []
 
 # === SIDEBAR FOR ADDING BOOKMARKS ===
 with st.sidebar:
@@ -29,6 +38,26 @@ with st.sidebar:
                         st.error(response.json().get('detail', 'Unknown error'))
                 except requests.exceptions.ConnectionError:
                     st.error("Cannot currently connect to backend.")
+    
+    st.divider()
+    st.subheader("Saved Bookmarks")
+    bookmarks = get_bookmarks()
+
+    with st.container(height=100, border=True):
+        if bookmarks:
+            for idx, bookmark in enumerate(bookmarks, start=1):
+                bookmark_url = bookmark.get("url", "")
+                bookmark_title = bookmark.get("title") or "(No title retrieved)"
+                idx_col, link_col = st.columns([1, 9], gap="small")
+                idx_col.markdown(f"{idx}.")
+                link_col.link_button(
+                    label=bookmark_title,
+                    url=bookmark_url,
+                    use_container_width=True,
+                )
+        else:
+            st.caption("No bookmarks to display yet.")
+
     st.divider()
     st.caption("**Disclaimer:** The full conversation is visible, but the assistant does not remember earlier messages when responding.", text_alignment="justify")
 
