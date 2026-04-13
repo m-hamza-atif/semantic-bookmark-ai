@@ -1,8 +1,9 @@
 import streamlit as st
 import requests
+import os
 
-# The local address of the FastAPI backend
-API_URL = "http://127.0.0.1:8000/api/v1"
+# Uses the cloud URL if it exists, otherwise falls back to localhost for your own testing
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/api/v1")
 
 st.set_page_config(page_title="Semantic Bookmark AI", page_icon="🔖")
 st.title("🔖 Semantic Bookmark AI")
