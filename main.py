@@ -14,6 +14,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
+@app.head("/", tags=["Health"])
 @app.get("/", tags=["Health"])
 def read_root() -> dict[str, str]:
     return {"status": "Bookmark API is running"}
