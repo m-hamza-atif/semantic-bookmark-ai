@@ -1,6 +1,7 @@
 # 🔖 Semantic Bookmark AI
 
 🔗 **Live Frontend App (Streamlit):** [Click here to use the AI](https://semantic-bookmark-ai.streamlit.app)
+
 ⚙️ **Live Backend API (Swagger UI):** [Click here to view the endpoints](https://semantic-bookmark-ai.onrender.com/docs)
 
 ---
