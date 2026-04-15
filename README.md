@@ -1,5 +1,10 @@
 # 🔖 Semantic Bookmark AI
 
+🔗 **Live Frontend App (Streamlit):** [Click here to use the AI](https://semantic-bookmark-ai.streamlit.app)
+⚙️ **Live Backend API (Swagger UI):** [Click here to view the endpoints](https://semantic-bookmark-ai.onrender.com/docs)
+
+---
+
 Semantic Bookmark AI is a full-stack, AI-powered knowledge base that allows users to save web articles and query them using natural language.
 
 Based on a 3-Tier Architecture, it combines a highly concurrent **FastAPI** backend with a **Streamlit** visual client. It utilizes **Google Gemini** for vector embeddings and text generation, and **Supabase (PostgreSQL + pgvector)** for mathematically performing Cosine Similarity searches to answer user queries via Retrieval-Augmented Generation (RAG).
