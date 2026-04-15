@@ -8,7 +8,7 @@ EMBEDDING_MODEL = "gemini-embedding-001"
 EMBEDDING_DIMENSION = 768 # Change these in database.py too if changed here
 GENERATION_MODEL = 'gemini-2.5-flash'
 FALLBACK_GENERATION_MODEL = 'gemini-1.5-flash'
-MAX_OUTPUT_TOKENS = 1000 # Hard limit on AI responses
+MAX_OUTPUT_TOKENS = 1200 # Hard limit on AI responses
 
 
 class AIServiceError(Exception):
