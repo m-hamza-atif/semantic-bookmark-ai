@@ -6,8 +6,8 @@ from google.genai.errors import APIError
 client = genai.Client() # Gets API key from .env automatically
 EMBEDDING_MODEL = "gemini-embedding-001"
 EMBEDDING_DIMENSION = 768 # Change these in database.py too if changed here
-GENERATION_MODEL = 'gemini-2.5-flash'
-FALLBACK_GENERATION_MODEL = 'gemini-1.5-flash'
+GENERATION_MODEL = 'gemini-3.5-flash-lite'
+FALLBACK_GENERATION_MODEL = 'gemini-2.5-flash'
 MAX_OUTPUT_TOKENS = 1200 # Hard limit on AI responses
 
 

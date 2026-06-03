@@ -1,4 +1,4 @@
-# 🔖 Semantic Bookmark AI
+# Semantic Bookmark AI
 
 🔗 **Live Frontend App (Streamlit):** [Click here to use the AI](https://semantic-bookmark-ai.streamlit.app)
 
@@ -10,7 +10,7 @@ Semantic Bookmark AI is a full-stack, AI-powered knowledge base that allows user
 
 Based on a 3-Tier Architecture, it combines a highly concurrent **FastAPI** backend with a **Streamlit** visual client. It utilizes **Google Gemini** for vector embeddings and text generation, and **Supabase (PostgreSQL + pgvector)** for mathematically performing Cosine Similarity searches to answer user queries via Retrieval-Augmented Generation (RAG).
 
-## ⚡ Key Features
+## Key Features
 
 * **Intelligent Web Scraping:** Automatically extracts readable text from URLs while gracefully handling edge cases such as invalid URLs, timeouts, blocked pages, and non-HTML content.
 * **Semantic Search:** Understands the meaning of your questions to find exact answers buried in massive articles, rather than  matching keywords.
@@ -19,7 +19,7 @@ Based on a 3-Tier Architecture, it combines a highly concurrent **FastAPI** back
 * **Robust Database Security:** Raw SQL implementation with connection pooling, graceful transaction rollbacks, and protection against prompt-injection attacks.
 * **Modern API Design:** Fully documented Swagger UI at `/docs`.
 
-## 🧮 Tech Stack
+## Tech Stack
 
 | Component | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -29,7 +29,7 @@ Based on a 3-Tier Architecture, it combines a highly concurrent **FastAPI** back
 | AI SDK | Google GenAI SDK | Generates vectors and human-readable chat responses. |
 | Package Manager | uv | Dependency resolution, and virtual environments. |
 
-## 📂 Complete Project Structure
+## Complete Project Structure
 
 ```text
 semantic-bookmark-ai/
