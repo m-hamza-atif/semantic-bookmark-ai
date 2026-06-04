@@ -15,7 +15,7 @@ Based on a 3-Tier Architecture, it combines a highly concurrent **FastAPI** back
 * **Intelligent Web Scraping:** Automatically extracts readable text from URLs while gracefully handling edge cases such as invalid URLs, timeouts, blocked pages, and non-HTML content.
 * **Semantic Search:** Understands the meaning of your questions to find exact answers buried in massive articles, rather than  matching keywords.
 * **Token-Based Chunking:** Uses `tiktoken` library to slice articles into optimal, overlapping chunks (300 tokens/50 overlap) to preserve context.
-* **Gemini Models:** Powered by `gemini-embedding-001` for high-dimensional vectorization and `gemini-2.5-flash` for final answer generation.
+* **Gemini Models:** Powered by `gemini-embedding-001` for high-dimensional vectorization, alongside `gemini-3.1-flash-lite` and `gemini-2.5-flash` for final answer generation.
 * **Robust Database Security:** Raw SQL implementation with connection pooling, graceful transaction rollbacks, and protection against prompt-injection attacks.
 * **Modern API Design:** Fully documented Swagger UI at `/docs`.
 
