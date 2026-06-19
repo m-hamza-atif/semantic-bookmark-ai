@@ -49,6 +49,16 @@ def init_db() -> None:
         """ # Vector dimensions are 768 for Gemini API
         cur.execute(create_chunks_table_query)
 
+        # Add explicit grants for Supabase Data API roles
+        grant_queries = """
+        GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE bookmarks TO anon, authenticated, service_role;
+        GRANT USAGE ON SEQUENCE bookmarks_id_seq TO anon, authenticated, service_role;
+        
+        GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE bookmark_chunks TO anon, authenticated, service_role;
+        GRANT USAGE ON SEQUENCE bookmark_chunks_id_seq TO anon, authenticated, service_role;
+        """
+        cur.execute(grant_queries)
+
         conn.commit()
         print("Database initialized successfully.")
         
